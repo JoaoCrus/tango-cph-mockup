@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copenhagen Tango Intermezzo 2026 — Kedelhallen, May 14–17</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:     #060508;
+  --deep:      #0D0A10;
+  --dark:      #160F1C;
+  --panel:     #1C1425;
+  --border:    rgba(180,140,90,0.18);
+  --gold:      #C8A040;
+  --gold2:     #E0B860;
+  --gold-dim:  #8A6A28;
+  --cream:     #F0E8D8;
+  --muted:     #8A7E6E;
+  --light:     #C4B89A;
+  --red:       #8B1A2A;
+  --red2:      #B52035;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Mulish', sans-serif;
+  background: var(--black);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+/* ══ NOISE TEXTURE OVERLAY ══ */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
+
+/* ══ NAV ══ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 68px;
+  background: rgba(6,5,8,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: height 0.3s;
+}
+
+.nav-logo {
+  display: flex; flex-direction: column; text-decoration: none;
+  line-height: 1;
+}
+.nav-logo-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 0.12em; color: var(--gold);
+}
+.nav-logo-sub {
+  font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--muted); margin-top: 1px;
+}
+
+.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--light); text-decoration: none; font-weight: 500;
+  padding: 0 18px; height: 68px; display: flex; align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+.nav-pass {
+  font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.14em;
+  background: var(--gold); color: var(--black);
+  padding: 9px 24px; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.nav-pass:hover { background: var(--gold2); transform: translateY(-1px); }
+
+/* ══ HERO ══ */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 80px;
+  position: relative; overflow: hidden;
+  background: var(--black);
+}
+
+/* Atmospheric radial light */
+.hero::before {
+  content: '';
+  position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 900px; border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(200,160,64,0.12) 0%,
+    rgba(139,26,42,0.08) 35%,
+    transparent 70%);
+  pointer-events: none;
+}
+
+/* Diagonal lines decoration */
+.hero::after {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 48px,
+    rgba(200,160,64,0.025) 48px,
+    rgba(200,160,64,0.025) 49px
+  );
+}
+
+.hero-date-badge {
+  display: inline-flex; align-items: center; gap: 12px;
+  border: 1px solid var(--gold-dim);
+  padding: 8px 24px; margin-bottom: 40px;
+  font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); font-weight: 500;
+  position: relative; z-index: 1;
+}
+.hero-date-badge::before,
+.hero-date-badge::after {
+  content: '◆'; font-size: 6px; opacity: 0.6;
+}
+
+.hero-location {
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 24px;
+  position: relative; z-index: 1;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 13vw, 180px);
+  line-height: 0.9; letter-spacing: 0.04em;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.hero-title .line1 { color: var(--cream); display: block; }
+.hero-title .line2 {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--gold);
+  display: block; letter-spacing: 0.06em;
+}
+.hero-title .line3 { color: var(--gold); display: block; font-size: 0.55em; letter-spacing: 0.18em; }
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(16px, 2.2vw, 24px); font-style: italic; font-weight: 300;
+  color: var(--light); margin-bottom: 56px;
+  position: relative; z-index: 1; line-height: 1.6;
+}
+
+.hero-stats {
+  display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 56px; position: relative; z-index: 1;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px; letter-spacing: 0.04em; color: var(--gold); line-height: 1;
+}
+.hero-stat-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+}
+.stat-divider { width: 1px; background: var(--border); align-self: stretch; }
+
+.hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+.btn-gold {
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.14em;
+  background: var(--gold); color: var(--black);
+  padding: 14px 40px; text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-gold:hover { background: var(--gold2); transform: translateY(-2px); }
+
+.btn-ghost {
+  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.14em;
+  border: 1px solid rgba(200,160,64,0.4); color: var(--gold);
+  padding: 14px 40px; text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold); background: rgba(200,160,64,0.08); }
+
+/* ══ PROGRAM ══ */
+.program-section {
+  padding: 100px 56px;
+  background: var(--deep);
+  position: relative; z-index: 1;
+}
+
+.section-eyebrow {
+  font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px; font-weight: 600;
+  display: flex; align-items: center; gap: 14px;
+}
+.section-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 6vw, 80px); letter-spacing: 0.04em; line-height: 0.95;
+  margin-bottom: 60px;
+}
+
+.days-grid { display: flex; flex-direction: column; gap: 2px; }
+
+.day-block {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.day-header {
+  display: grid; grid-template-columns: 140px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.day-date-col {
+  padding: 28px 28px;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.day-weekday {
+  font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 0.06em;
+  color: var(--gold); line-height: 1;
+}
+.day-date { font-size: 12px; letter-spacing: 0.1em; color: var(--muted); margin-top: 2px; }
+
+.day-title-col {
+  padding: 28px 36px; display: flex; align-items: center; gap: 20px;
+}
+.day-event-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 600; color: var(--cream);
+}
+.day-event-tag {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  border: 1px solid var(--gold-dim); color: var(--gold);
+  padding: 4px 12px;
+}
+
+.sessions { display: flex; flex-direction: column; }
+
+.session {
+  display: grid; grid-template-columns: 140px 1fr auto;
+  padding: 20px 28px 20px 28px;
+  border-bottom: 1px solid rgba(180,140,90,0.08);
+  align-items: center; gap: 0;
+  transition: background 0.2s;
+}
+.session:last-child { border-bottom: none; }
+.session:hover { background: rgba(200,160,64,0.04); }
+
+.session-time {
+  font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 0.08em;
+  color: var(--muted); padding-right: 28px; border-right: 1px solid var(--border);
+}
+.session-info { padding: 0 28px; }
+.session-type {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 4px; font-weight: 600;
+}
+.session-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600; color: var(--cream); margin-bottom: 3px;
+}
+.session-dj { font-size: 12px; color: var(--muted); }
+.session-live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red2); font-weight: 700;
+  border: 1px solid rgba(181,32,53,0.4);
+  padding: 5px 14px;
+  background: rgba(181,32,53,0.08);
+}
+.session-live::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red2);
+  animation: livepulse 1.5s ease-in-out infinite;
+}
+@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
+
+.session-price {
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.06em;
+  color: var(--light); text-align: right; min-width: 130px;
+  padding-left: 28px;
+}
+.session-price .alt-price { font-size: 13px; color: var(--muted); font-family: 'Mulish', sans-serif; display: block; letter-spacing: 0; margin-top: 2px; }
+
+/* Pass CTA inside program */
+.pass-cta-bar {
+  margin-top: 32px;
+  padding: 28px 40px;
+  border: 1px solid var(--gold-dim);
+  background: rgba(200,160,64,0.05);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.pass-cta-text { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: var(--cream); }
+.pass-cta-text strong { color: var(--gold); font-style: normal; font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.06em; }
+
+/* ══ ORCHESTRAS ══ */
+.orchestras-section {
+  padding: 100px 56px;
+  background: var(--black);
+  position: relative; z-index: 1;
+}
+
+.orchestra-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+.orchestra-card {
+  background: var(--panel);
+  padding: 44px 36px;
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.orchestra-card::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.orchestra-card:hover { border-color: rgba(200,160,64,0.35); }
+.orchestra-card:hover::before { transform: scaleX(1); }
+
+.orch-label {
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px; font-weight: 600;
+}
+.orch-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px; letter-spacing: 0.06em; color: var(--cream);
+  margin-bottom: 8px; line-height: 1;
+}
+.orch-night {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px; font-weight: 500;
+}
+.orch-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+.orch-desc { font-size: 13px; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+.maestro-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 20px;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--red2); font-weight: 600;
+}
+.maestro-tag::before { content: '★'; font-size: 10px; }
+
+/* ══ VENUE ══ */
+.venue-section {
+  padding: 100px 0;
+  background: var(--dark);
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; z-index: 1;
+}
+
+.venue-visual {
+  background: linear-gradient(135deg, #1a0f24 0%, #0D0A10 100%);
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center; min-height: 500px;
+}
+
+.venue-visual-inner {
+  text-align: center; padding: 60px 40px;
+}
+
+.venue-big-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 88px; letter-spacing: 0.1em; line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(200,160,64,0.4);
+  display: block; margin-bottom: 16px;
+}
+.venue-address {
+  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+}
+.venue-floor {
+  display: inline-block; margin-top: 24px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--gold); letter-spacing: 0.06em;
+}
+.venue-floor span { font-family: 'Mulish', sans-serif; font-size: 13px; letter-spacing: 0.1em; color: var(--muted); display: block; margin-top: -4px; }
+
+.venue-content { padding: 80px 64px; display: flex; flex-direction: column; justify-content: center; }
+
+.venue-content .section-eyebrow { margin-bottom: 16px; }
+.venue-content .section-title { font-size: clamp(36px, 4vw, 56px); margin-bottom: 28px; }
+
+.venue-desc { font-size: 15px; line-height: 1.85; color: var(--muted); margin-bottom: 32px; font-weight: 300; }
+
+.venue-features { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+.venue-feature {
+  display: flex; align-items: flex-start; gap: 14px;
+  font-size: 13px; color: var(--light); line-height: 1.6;
+}
+.venue-feature-icon {
+  width: 32px; height: 32px; border-radius: 4px; flex-shrink: 0;
+  background: rgba(200,160,64,0.1); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+  margin-top: 1px;
+}
+
+/* ══ WORKSHOPS ══ */
+.workshops-section {
+  padding: 100px 56px;
+  background: var(--deep);
+  position: relative; z-index: 1;
+}
+
+.maestros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+
+.maestro-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 52px 48px;
+  position: relative; overflow: hidden;
+}
+.maestro-card::after {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,160,64,0.06) 0%, transparent 70%);
+  transform: translate(50%, -50%);
+}
+
+.maestro-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px; color: rgba(200,160,64,0.06); line-height: 1;
+  position: absolute; top: 20px; right: 32px; letter-spacing: 0;
+}
+.maestro-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 600; }
+.maestro-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 0.04em; line-height: 1;
+  color: var(--cream); margin-bottom: 8px;
+}
+.maestro-partner { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--muted); margin-bottom: 24px; }
+.maestro-night-badge {
+  display: inline-block; padding: 5px 16px; margin-bottom: 24px;
+  border: 1px solid rgba(139,26,42,0.5); background: rgba(139,26,42,0.1);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red2); font-weight: 600;
+}
+.maestro-desc { font-size: 13px; line-height: 1.8; color: var(--muted); font-weight: 300; }
+
+/* ══ PASS SECTION ══ */
+.pass-section {
+  padding: 120px 56px;
+  background: var(--black);
+  text-align: center;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.pass-section::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 800px; height: 500px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(200,160,64,0.1) 0%, rgba(139,26,42,0.06) 40%, transparent 70%);
+  pointer-events: none;
+}
+
+.pass-price-display {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  margin: 32px 0 8px;
+}
+.pass-currency { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: var(--gold); }
+.pass-amount {
+  font-family: 'Bebas Neue', sans-serif; font-size: 120px; letter-spacing: -0.02em;
+  color: var(--cream); line-height: 1;
+}
+.pass-period { font-size: 16px; color: var(--muted); align-self: flex-end; padding-bottom: 16px; }
+.pass-saving {
+  display: inline-block; margin-bottom: 40px;
+  font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+  border: 1px solid rgba(200,160,64,0.3); background: rgba(200,160,64,0.06);
+  color: var(--gold); padding: 8px 24px;
+}
+
+.pass-includes {
+  display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 52px;
+}
+.pass-include-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; letter-spacing: 0.06em; color: var(--light);
+}
+.pass-include-item::before { content: '◆'; font-size: 6px; color: var(--gold); }
+
+/* ══ FOOTER ══ */
+footer {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  padding: 60px 56px 32px;
+  position: relative; z-index: 1;
+}
+.footer-top {
+  display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 56px; padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.footer-brand-name {
+  font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 4px;
+}
+.footer-brand-sub { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.footer-tagline { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-style: italic; color: var(--muted); line-height: 1.7; max-width: 280px; }
+
+.footer-col-title { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 20px; }
+.footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.footer-col-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.04em; }
+.footer-col-links a:hover { color: var(--cream); }
+
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: 11px; color: rgba(138,126,110,0.45); letter-spacing: 0.08em; }
+.footer-cvr { font-size: 11px; color: rgba(138,126,110,0.35); letter-spacing: 0.05em; }
+
+/* ══ REVEAL ══ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 900px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .program-section, .orchestras-section, .workshops-section, .pass-section { padding: 72px 20px; }
+  .orchestra-grid, .maestros-grid { grid-template-columns: 1fr; }
+  .venue-section { grid-template-columns: 1fr; }
+  .venue-content { padding: 48px 24px; }
+  .day-header { grid-template-columns: 100px 1fr; }
+  .session { grid-template-columns: 1fr; gap: 8px; }
+  .session-time { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  footer { padding: 48px 20px 24px; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .pass-amount { font-size: 80px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-main">Tango CPH</div>
+    <div class="nav-logo-sub">Copenhagen Tango Intermezzo</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#program">Program</a></li>
+    <li><a href="#orchestras">Orchestras</a></li>
+    <li><a href="#workshops">Maestros</a></li>
+    <li><a href="#venue">The Venue</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-pass" href="#pass">Buy 4-Day Pass</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-date-badge">May 14 – 17, 2026 · Copenhagen, Denmark</div>
+  <p class="hero-location">Kedelhallen · Nyelandsvej 75 · Frederiksberg</p>
+
+  <h1 class="hero-title">
+    <span class="line1">Copenhagen</span>
+    <span class="line2">Tango</span>
+    <span class="line3">Intermezzo 2026</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    6 milongas · 3 live orchestras · 4 maestros · 7 DJs<br>
+    36 hours of dancing with 500+ tangueros from around the world
+  </p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">4</div>
+      <div class="hero-stat-label">Days</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">6</div>
+      <div class="hero-stat-label">Milongas</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Live Orchestras</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">500+</div>
+      <div class="hero-stat-label">Dancers</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">600m²</div>
+      <div class="hero-stat-label">Dance Floor</div>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a class="btn-gold" href="#pass">Buy 4-Day Pass — €120</a>
+    <a class="btn-ghost" href="#program">View Full Program</a>
+  </div>
+</section>
+
+<!-- ══ PROGRAM ══ -->
+<section class="program-section" id="program">
+  <p class="section-eyebrow">Full Schedule</p>
+  <h2 class="section-title reveal">Program &amp; Prices</h2>
+
+  <div class="days-grid">
+
+    <!-- Thursday -->
+    <div class="day-block reveal">
+      <div class="day-header">
+        <div class="day-date-col">
+          <div class="day-weekday">Thu</div>
+          <div class="day-date">14 May</div>
+        </div>
+        <div class="day-title-col">
+          <div class="day-event-name">Vinyl Night — Opening Milonga</div>
+          <div class="day-event-tag">Opening</div>
+        </div>
+      </div>
+      <div class="sessions">
+        <div class="session">
+          <div class="session-time">21:00 – 02:00</div>
+          <div class="session-info">
+            <div class="session-type">Milonga · Vinyl DJ</div>
+            <div class="session-name">Opening Night Milonga</div>
+            <div class="session-dj">DJ: Pino Dangiola — Original Vinyl, traveling Europe's all-vinyl festivals</div>
+          </div>
+          <div class="session-price">150 kr<span class="alt-price">/ 20 €</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Friday -->
+    <div class="day-block reveal delay-1">
+      <div class="day-header">
+        <div class="day-date-col">
+          <div class="day-weekday">Fri</div>
+          <div class="day-date">15 May</div>
+        </div>
+        <div class="day-title-col">
+          <div class="day-event-name">Bandonegro — Grand Night Milonga</div>
+          <div class="day-event-tag">Live Music</div>
+        </div>
+      </div>
+      <div class="sessions">
+        <div class="session">
+          <div class="session-time">15:00 – 19:00</div>
+          <div class="session-info">
+            <div class="session-type">Afternoon Milonga</div>
+            <div class="session-name">Afternoon Milonga with Daylight</div>
+            <div class="session-dj">DJ: Anastasia</div>
+          </div>
+          <div class="session-price">130 kr<span class="alt-price">/ 17 €</span></div>
+        </div>
+        <div class="session">
+          <div class="session-time">21:00 – 04:00</div>
+          <div class="session-info">
+            <div class="session-type">Grand Night Milonga</div>
+            <div class="session-name">Bandonegro — Live Orchestra</div>
+            <div class="session-dj">DJ: Liv Lady B · Show: Fausto y Stephanie</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-left:28px;min-width:130px;">
+            <div class="session-live">Live</div>
+            <div class="session-price" style="padding-left:0;">275 kr<span class="alt-price">/ 37 €</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Saturday -->
+    <div class="day-block reveal delay-2">
+      <div class="day-header">
+        <div class="day-date-col">
+          <div class="day-weekday">Sat</div>
+          <div class="day-date">16 May</div>
+        </div>
+        <div class="day-title-col">
+          <div class="day-event-name">La Juan D'Arienzo — Party Milonga</div>
+          <div class="day-event-tag">Live Music</div>
+        </div>
+      </div>
+      <div class="sessions">
+        <div class="session">
+          <div class="session-time">15:00 – 19:00</div>
+          <div class="session-info">
+            <div class="session-type">Afternoon Milonga</div>
+            <div class="session-name">Saturday Afternoon</div>
+            <div class="session-dj">DJ: Vesna Kesar</div>
+          </div>
+          <div class="session-price">130 kr<span class="alt-price">/ 17 €</span></div>
+        </div>
+        <div class="session">
+          <div class="session-time">21:00 – 04:00</div>
+          <div class="session-info">
+            <div class="session-type">Party Milonga — Grand Night</div>
+            <div class="session-name">La Juan D'Arienzo — Live Orchestra</div>
+            <div class="session-dj">DJ: Victor Ariel Yuryevic · Show: Chicho y Juana</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-left:28px;min-width:130px;">
+            <div class="session-live">Live</div>
+            <div class="session-price" style="padding-left:0;">300 kr<span class="alt-price">/ 40 €</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sunday -->
+    <div class="day-block reveal delay-3">
+      <div class="day-header">
+        <div class="day-date-col">
+          <div class="day-weekday">Sun</div>
+          <div class="day-date">17 May</div>
+        </div>
+        <div class="day-title-col">
+          <div class="day-event-name">El Cachivache — Grand Final Milonga</div>
+          <div class="day-event-tag">Grand Finale</div>
+        </div>
+      </div>
+      <div class="sessions">
+        <div class="session">
+          <div class="session-time">15:00 – 24:00</div>
+          <div class="session-info">
+            <div class="session-type">Grand Final Milonga</div>
+            <div class="session-name">El Cachivache — Live Orchestra</div>
+            <div class="session-dj">DJ: Diego Doigneau · Farewell evening with 9 hours of dancing</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;padding-left:28px;min-width:130px;">
+            <div class="session-live">Live</div>
+            <div class="session-price" style="padding-left:0;">275 kr<span class="alt-price">/ 37 €</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pass-cta-bar reveal">
+    <div class="pass-cta-text">
+      Buy your <strong>4-Day Pass</strong> and save 360 kr / 48 € on all milongas
+    </div>
+    <a class="btn-gold" href="#pass">Get 4-Day Pass — €120</a>
+  </div>
+</section>
+
+<!-- ══ ORCHESTRAS ══ -->
+<section class="orchestras-section" id="orchestras">
+  <p class="section-eyebrow">Live Music</p>
+  <h2 class="section-title reveal">The Orchestras</h2>
+
+  <div class="orchestra-grid">
+    <div class="orchestra-card reveal">
+      <div class="orch-label">Friday Night · 15 May</div>
+      <div class="orch-name">Bandonegro</div>
+      <div class="orch-night">Grand Night Milonga</div>
+      <div class="orch-divider"></div>
+      <div class="orch-desc">A world-class tango orchestra among the most original and recognizable performers in the genre. Presenting traditional Argentine tango, tango nuevo, and original compositions with elements of jazz — always encouraging listeners to experience tango in a completely new light.</div>
+      <div class="maestro-tag">Show: Fausto y Stephanie</div>
+    </div>
+
+    <div class="orchestra-card reveal delay-1">
+      <div class="orch-label">Saturday Night · 16 May</div>
+      <div class="orch-name">La Juan D'Arienzo</div>
+      <div class="orch-night">Party Milonga — El Rey del Compas</div>
+      <div class="orch-divider"></div>
+      <div class="orch-desc">10 men on stage for the Grand Night. The amazing Orchestra La Juan D'Arienzo brings back the feeling of the original D'Arienzo — known as the most powerful Orchestra Típica, their rhythmic energy is unmatched on any dance floor.</div>
+      <div class="maestro-tag">Show: Chicho y Juana</div>
+    </div>
+
+    <div class="orchestra-card reveal delay-2">
+      <div class="orch-label">Sunday Final · 17 May</div>
+      <div class="orch-name">El Cachivache</div>
+      <div class="orch-night">Grand Final Milonga</div>
+      <div class="orch-divider"></div>
+      <div class="orch-desc">One of the most celebrated traditional tango orchestras performing today. El Cachivache closes the festival with an extraordinary finale — their deep, authentic sound gives the Grand Final Milonga the perfect emotional weight for a 9-hour farewell.</div>
+      <div class="maestro-tag">Grand Finale Performance</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAESTROS ══ -->
+<section class="workshops-section" id="workshops">
+  <p class="section-eyebrow">Workshops &amp; Seminars</p>
+  <h2 class="section-title reveal">The Maestros</h2>
+
+  <div class="maestros-grid">
+    <div class="maestro-card reveal">
+      <div class="maestro-num">01</div>
+      <div class="maestro-label">Friday Night Masters</div>
+      <div class="maestro-name">Fausto &amp;<br>Stephanie</div>
+      <div class="maestro-partner">Tango Argentina</div>
+      <div class="maestro-night-badge">Show: Friday Grand Night</div>
+      <div class="maestro-desc">International maestros presenting the depth and poetry of Argentine tango. Their workshops explore embrace, musicality, and the dialogue between partners. Available in workshops and seminars throughout the festival weekend.</div>
+    </div>
+
+    <div class="maestro-card reveal delay-1">
+      <div class="maestro-num">02</div>
+      <div class="maestro-label">Saturday Night Masters</div>
+      <div class="maestro-name">Chicho &amp;<br>Juana</div>
+      <div class="maestro-partner">Tango Nuevo & Traditional</div>
+      <div class="maestro-night-badge">Show: Saturday Party Milonga</div>
+      <div class="maestro-desc">Masters of both traditional and nuevo styles, Chicho and Juana bring a dynamic, expressive energy to the floor. Their show on Saturday night is one of the most anticipated performances of the entire festival.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ VENUE ══ -->
+<section class="venue-section" id="venue">
+  <div class="venue-visual">
+    <div class="venue-visual-inner">
+      <span class="venue-big-name">KEDEL-<br>HALLEN</span>
+      <div class="venue-address">Nyelandsvej 75 · Frederiksberg · Copenhagen</div>
+      <div class="venue-floor">600m²<span>Perfect wooden dance floor</span></div>
+    </div>
+  </div>
+
+  <div class="venue-content">
+    <p class="section-eyebrow">The Venue</p>
+    <h2 class="section-title reveal">Kedelhallen<br>Copenhagen</h2>
+    <p class="venue-desc reveal">
+      "The Boilerhouse" is a cultural venue in Frederiksberg, Copenhagen — formerly part of the Frederiksberg Incineration Plant, beautifully adapted in 2001. The 600m² main hall has a perfect wooden floor built for sport and dancing. During afternoon milongas, natural daylight fills the room; at night, cozy lighting transforms it into an intimate tango atmosphere.
+    </p>
+
+    <div class="venue-features">
+      <div class="venue-feature reveal">
+        <div class="venue-feature-icon">🚇</div>
+        600m from Metro St. Fasanvej — metro runs all night. 20 min direct from the airport.
+      </div>
+      <div class="venue-feature reveal delay-1">
+        <div class="venue-feature-icon">🎵</div>
+        Professional sound system calibrated to the dance floor for optimal DJ and live orchestra experience.
+      </div>
+      <div class="venue-feature reveal delay-2">
+        <div class="venue-feature-icon">☕</div>
+        Café/bar directly connected to the main hall, plus indoor and outdoor relaxation areas.
+      </div>
+      <div class="venue-feature reveal delay-3">
+        <div class="venue-feature-icon">🚲</div>
+        Copenhagen is bicycle-friendly — bike rentals available throughout the city. Parking for cars too.
+      </div>
+    </div>
+
+    <a class="btn-ghost" href="https://www.google.dk/maps" target="_blank" style="display:inline-block;margin-top:8px;">
+      Show on Google Maps →
+    </a>
+  </div>
+</section>
+
+<!-- ══ 4-DAY PASS ══ -->
+<section class="pass-section" id="pass">
+  <p class="section-eyebrow" style="justify-content:center;display:flex;">Best Value</p>
+  <h2 class="section-title reveal" style="text-align:center;">The 4-Day Full Pass</h2>
+
+  <div class="pass-price-display reveal">
+    <span class="pass-currency">€</span>
+    <span class="pass-amount">120</span>
+    <span class="pass-period">/ all 4 days</span>
+  </div>
+
+  <div class="pass-saving reveal">Early Bird: Save 360 kr / 48 € vs. buying door tickets separately</div>
+
+  <div class="pass-includes reveal">
+    <div class="pass-include-item">Thursday Opening Milonga</div>
+    <div class="pass-include-item">Friday Afternoon + Grand Night</div>
+    <div class="pass-include-item">Saturday Afternoon + Party Night</div>
+    <div class="pass-include-item">Sunday Grand Final Milonga</div>
+    <div class="pass-include-item">3 Live Orchestras</div>
+    <div class="pass-include-item">4 Maestro Shows</div>
+    <div class="pass-include-item">7 International DJs</div>
+    <div class="pass-include-item">36 Hours of Dancing</div>
+  </div>
+
+  <a class="btn-gold reveal" href="#" style="display:inline-block;font-size:22px;padding:18px 56px;">
+    Register &amp; Buy 4-Day Pass
+  </a>
+
+  <p style="margin-top:24px;font-size:12px;color:var(--muted);letter-spacing:0.06em;">
+    Single milonga tickets also available at the door
+  </p>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer id="contact">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Tango CPH</div>
+      <div class="footer-brand-sub">Copenhagen Tango Intermezzo</div>
+      <p class="footer-tagline">Like a marathon — with live music, just like it all started in Buenos Aires.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Festival</div>
+      <ul class="footer-col-links">
+        <li><a href="#program">Program &amp; Prices</a></li>
+        <li><a href="#orchestras">The Orchestras</a></li>
+        <li><a href="#workshops">Maestros</a></li>
+        <li><a href="#">TDJ 2026</a></li>
+        <li><a href="#">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Practical</div>
+      <ul class="footer-col-links">
+        <li><a href="#venue">The Venue</a></li>
+        <li><a href="#">Where to Stay</a></li>
+        <li><a href="#pass">Buy 4-Day Pass</a></li>
+        <li><a href="#">Workshops</a></li>
+        <li><a href="#">Seminars</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-col-links">
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Kedelhallen, Frederiksberg</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Tango CPH — Copenhagen Tango Intermezzo</div>
+    <div class="footer-cvr">CVR: 25887530 · tango-cph.dk</div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+
+// Nav shrink
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    nav.style.height = '54px';
+    nav.style.background = 'rgba(6,5,8,0.97)';
+  } else {
+    nav.style.height = '68px';
+    nav.style.background = 'rgba(6,5,8,0.88)';
+  }
+});
+</script>
+</body>
+</html>
